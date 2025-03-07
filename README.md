@@ -1,37 +1,30 @@
-# A sample NextGen connect Plugin project
+# LDAP Authentication plug-in
 
-A sample [NextGen Connect](https://github.com/nextgenhealthcare/connect) plugin.
+This is a simple LDAP authentication plug-in for Mirth Connect. It can be used
+to allow users to login using an LDAP service for authentication and authorization.
 
-This repository is used in [this guide on writing Mirth plugins](https://github.com/kpalang/mirth-plugin-guide).
+You can also fall-back to using the local Mirth user-database if you'd like if
+no acceptable user can be located in the LDAP service.
+
+## Configuration
+
+Configuration is done using a simple Java properties file, `ldap.properties`,
+which you place on your server alongside your `mirth.properties` file. A sample
+file is included in this directory, and it contains comments describing each
+configuration settings.
 
 ## Installation
-1. [Install Java](https://www.javatpoint.com/javafx-how-to-install-java)
-2. [Install Maven](https://www.javatpoint.com/how-to-install-maven)
-3. Run `git clone https://github.com/kpalang/mirth-sample-plugin`
-4. Navigate to `mirth-sample-plugin/`
-5. Run `./build.sh` to verify the build works
-6. Try to install the sample plugin by getting the `sampleplugin.zip` archive from your project root
----
 
-## Usage
+Simply upload the ZIP file containing the plug-in via the Mirth Connect
+administrator, or unzip the ZIP file into the `extensions/` directory on
+your Mirth server.
 
-> [!TIP]
-> This repository is best used as a template by clicking the green "Use this template" button in the top right corner.
-> Using as a template makes your repository not pick up the changes in the base repo thus avoiding file mismatches. 
+## Building
 
-**This repository showcases use of [mirth-plugin-maven-plugin-kt](https://github.com/kpalang/mirth-plugin-maven-plugin-kt) to generate `plugin.xml` file!**
+The LDAP authenticator can be built with Apache Maven, but it will require that
+you obtain a few libraries manually, since Mirth Connect does not public Maven
+artifacts. You will need to place these files into the `libs/` directory:
 
-- Any external libraries that you might want to use in the plugin at runtime, go into `libs/runtime/{type}`
-- Any external libraries that you might want to use at compiletime, go into `libs/compiletime/{type}`
+    mirth-server.jar
 
-### You can choose between two methods when signing your plugin jarfiles
-#### Method 1 - maven-jarsigner-plugin in `pom.xml`
-Using the `maven-jarsigner-plugin` requires you uncomment this section [here](./pom.xml:122).
-Additionally, you must comment out or remove the [Method 2 section](./build.sh:63) in `build.sh`
-
-#### Method 2 - external script
-When using external signing, leave the [section](./pom.xml:122) in `pom.xml` commented or delete
-it and comment out or remove the [Method 1 section](./build.sh:52) in `build.sh`
-
----
-# Pull requests are always welcome
+You can find these libraries in Mirth Connect's server download.
